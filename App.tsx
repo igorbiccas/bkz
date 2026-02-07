@@ -1,141 +1,67 @@
 import React from 'react';
-import Header from './components/Header';
-import Chatbot from './components/Chatbot';
-
-const statusSignals = [
-  'Laboratório vivo no Rio de Janeiro, Brasil',
-  'Ideias para missões de impacto, não para volume',
-];
-
-const projectShowcase = [
-  {
-    name: 'SelfBrain',
-    mantra: 'IA com memória contínua.',
-    description:
-      'SelfBrain é a base que Igor vem construindo para agentes digitais preservarem contexto real de trabalho.',
-    impact:
-      'Aplicada em fluxos que pedem continuidade: suporte a equipes, produtos e operações que dependem de histórico vivo.',
-    linkLabel: 'Blueprint aberto',
-    linkHref: 'https://github.com/igorbiccas',
-  },
-];
-
-const connectionLinks = [
-  {
-    label: 'E-mail',
-    value: 'sinais@igorbiccas.com',
-    href: 'mailto:sinais@igorbiccas.com',
-  },
-  {
-    label: 'X',
-    value: '@igorbiccas',
-    href: 'https://x.com/igorbiccas',
-  },
-];
 
 const App: React.FC = () => {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#050505] text-slate-100">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-[-280px] h-[520px] w-[720px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(56,189,248,0.16),_transparent_60%)] blur-3xl" />
-        <div className="absolute bottom-[-240px] right-[-200px] h-[540px] w-[540px] rounded-full bg-[radial-gradient(circle,_rgba(245,158,11,0.18),_transparent_65%)] blur-3xl" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:80px_80px]" />
-      </div>
-
-      <div className="relative z-10">
-        <Header />
-
-        <main className="mx-auto flex max-w-5xl flex-col gap-28 px-6 pb-32 pt-28">
-          <section className="space-y-12">
-            <div className="flex flex-wrap gap-3 text-[0.65rem] uppercase tracking-[0.45em] text-slate-500">
-              {statusSignals.map((signal) => (
-                <span key={signal} className="rounded-full border border-white/10 px-4 py-2 text-slate-300/80">
-                  {signal}
-                </span>
-              ))}
-            </div>
-
-            <div className="space-y-8">
-              <h1 className="max-w-4xl text-4xl font-semibold leading-tight text-slate-50 sm:text-6xl">
-                Inteligência artificial para resolver trabalho real.
-              </h1>
-
-              <p className="max-w-3xl text-lg text-slate-300">
-                Igor Biccas projeta e constrói produtos de IA. Pesquisa modelos, arquitetura e operações para colocar agentes em produção com responsabilidade e impacto direto no negócio.
-              </p>
-            </div>
-          </section>
-
-          <section className="space-y-10">
-            <div className="flex flex-col gap-4 text-slate-300">
-              <div className="flex items-center justify-between text-xs uppercase tracking-[0.45em] text-slate-500">
-                <span>Projetos</span>
-                <span className="text-slate-600">Construção em andamento</span>
-              </div>
-              <p className="max-w-3xl text-base text-slate-400">
-                A prioridade é aplicar IA de ponta onde existe missão clara e espaço para aprender com dados reais.
-              </p>
-            </div>
-
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {projectShowcase.map((project) => (
-                <article
-                  key={project.name}
-                  className="flex h-full flex-col justify-between rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur transition hover:border-white/20 hover:bg-white/[0.07]"
-                >
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="text-lg font-medium text-slate-100">{project.name}</h3>
-                      <p className="text-sm text-amber-300/80">{project.mantra}</p>
-                    </div>
-                    <p className="text-sm text-slate-300/90">{project.description}</p>
-                    <p className="text-sm text-slate-400">{project.impact}</p>
-                  </div>
-                  <a
-                    href={project.linkHref}
-                    className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-200 transition hover:text-white"
-                  >
-                    {project.linkLabel}
-                    <span aria-hidden="true">→</span>
-                  </a>
-                </article>
-              ))}
-            </div>
-          </section>
-          
-          <section className="space-y-8">
-            <div className="flex items-center justify-between text-xs uppercase tracking-[0.45em] text-slate-500">
-              <h2 className="text-slate-500">Contato</h2>
-              <span className="text-slate-600">Preferência por projetos de longo prazo</span>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              {connectionLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="group rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition hover:border-white/20 hover:bg-white/[0.07]"
-                >
-                  <span className="text-[0.65rem] uppercase tracking-[0.45em] text-slate-500">{link.label}</span>
-                  <p className="mt-4 text-sm text-slate-100 group-hover:text-white">{link.value}</p>
-                </a>
-              ))}
-            </div>
-
-            <p className="max-w-3xl text-sm text-slate-400">
-              Fale sobre desafios concretos em IA generativa, automação de conhecimento ou produtos que aprendem com dados.
-            </p>
-          </section>
-        </main>
-
-        <footer className="px-6 pb-16">
-          <div className="mx-auto max-w-5xl border-t border-white/10 pt-6 text-xs text-slate-500">
-            <p>Igor Biccas</p>
+    <div className="min-h-screen bg-transparent text-black">
+      <main className="mx-auto flex w-full max-w-2xl flex-col gap-12 px-6 py-16 text-base leading-relaxed">
+        <section className="space-y-4">
+          <p className="text-sm uppercase tracking-[0.35em]">igor</p>
+          <div className="space-y-3">
+            <p>construo coisas.</p>
+            <p>principalmente com software.</p>
+            <p>uso esse site pra escrever, pensar e guardar ideias.</p>
+            <p>às vezes projetos aparecem no caminho.</p>
           </div>
-        </footer>
+          <div className="flex flex-wrap items-center gap-4 pt-2 text-sm">
+            <a
+              href="https://github.com/igorbiccas"
+              className="inline-flex items-center gap-2 underline underline-offset-4"
+              aria-label="GitHub @igorbiccas"
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                className="h-5 w-5 fill-current"
+              >
+                <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.5 2.87 8.31 6.84 9.66.5.1.68-.22.68-.48 0-.24-.01-.86-.01-1.7-2.78.62-3.37-1.38-3.37-1.38-.46-1.2-1.12-1.52-1.12-1.52-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.36 1.12 2.94.86.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.09 0-1.13.39-2.06 1.03-2.78-.1-.26-.45-1.3.1-2.72 0 0 .84-.27 2.75 1.06a9.25 9.25 0 0 1 5 0c1.91-1.33 2.75-1.06 2.75-1.06.55 1.42.2 2.46.1 2.72.64.72 1.03 1.65 1.03 2.78 0 3.96-2.34 4.82-4.57 5.08.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.8 0 .26.18.59.69.48A10.02 10.02 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z" />
+              </svg>
+              @igorbiccas
+            </a>
+            <a
+              href="https://flowcorp.vercel.app"
+              className="underline underline-offset-4"
+            >
+              flowcorp.vercel.app
+            </a>
+          </div>
+        </section>
 
-        <Chatbot />
-      </div>
+        <hr className="border-black" />
+
+        <section className="space-y-4">
+          <p className="text-sm uppercase tracking-[0.35em]">agora</p>
+          <div className="space-y-3">
+            <p>estou trabalhando em produtos digitais.</p>
+            <p>aprendendo em público.</p>
+            <p>testando, errando, ajustando.</p>
+            <p>nada aqui é definitivo.</p>
+          </div>
+        </section>
+
+        <hr className="border-black" />
+
+        <section className="space-y-4">
+          <p className="text-sm uppercase tracking-[0.35em]">notas</p>
+          <div className="space-y-3">
+            <p>textos curtos.</p>
+            <p>rascunhos.</p>
+            <p>perguntas melhores que respostas.</p>
+            <p>escrevo pra entender o que estou fazendo.</p>
+            <p>se ajudar alguém, ótimo.</p>
+          </div>
+        </section>
+
+      </main>
     </div>
   );
 };
