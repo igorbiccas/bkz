@@ -1,71 +1,74 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Igor Biccas — Forja</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              mono: ['"Roboto Mono"', 'monospace'],
-              display: ['"Bebas Neue"', 'sans-serif'],
-              grotesk: ['"Space Grotesk"', 'sans-serif'],
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon"
+    href="data:;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==">
+  <title>Igor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            mono: ['"Roboto Mono"', 'monospace'],
+            display: ['"Bebas Neue"', 'sans-serif'],
+            grotesk: ['"Space Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            carbon: '#050505',
+            ember: '#f59e0b',
+            aurora: '#38bdf8',
+            steel: '#111111',
+          },
+          boxShadow: {
+            neon: '0 0 40px rgba(245, 158, 11, 0.25)',
+          },
+          animation: {
+            fade: 'fadeIn 0.8s ease forwards',
+            blur: 'blurPulse 6s ease-in-out infinite',
+            breath: 'breath 12s ease-in-out infinite',
+            'pulse-soft': 'pulseSoft 3.8s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: 0, transform: 'translateY(16px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' },
             },
-            colors: {
-              carbon: '#050505',
-              ember: '#f59e0b',
-              aurora: '#38bdf8',
-              steel: '#111111',
+            blurPulse: {
+              '0%, 100%': { filter: 'blur(80px) opacity(0.3)' },
+              '50%': { filter: 'blur(100px) opacity(0.5)' },
             },
-            boxShadow: {
-              neon: '0 0 40px rgba(245, 158, 11, 0.25)',
+            breath: {
+              '0%, 100%': { transform: 'scale(0.92)', opacity: 0.45 },
+              '50%': { transform: 'scale(1.05)', opacity: 0.7 },
             },
-            animation: {
-              fade: 'fadeIn 0.8s ease forwards',
-              blur: 'blurPulse 6s ease-in-out infinite',
-              breath: 'breath 12s ease-in-out infinite',
-              'pulse-soft': 'pulseSoft 3.8s ease-in-out infinite',
-            },
-            keyframes: {
-              fadeIn: {
-                '0%': { opacity: 0, transform: 'translateY(16px)' },
-                '100%': { opacity: 1, transform: 'translateY(0)' },
-              },
-              blurPulse: {
-                '0%, 100%': { filter: 'blur(80px) opacity(0.3)' },
-                '50%': { filter: 'blur(100px) opacity(0.5)' },
-              },
-              breath: {
-                '0%, 100%': { transform: 'scale(0.92)', opacity: 0.45 },
-                '50%': { transform: 'scale(1.05)', opacity: 0.7 },
-              },
-              pulseSoft: {
-                '0%, 100%': { opacity: 0.3 },
-                '50%': { opacity: 1 },
-              },
+            pulseSoft: {
+              '0%, 100%': { opacity: 0.3 },
+              '50%': { opacity: 1 },
             },
           },
         },
-      }
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    >
-    <style>
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        font-family: 'Space Grotesk', sans-serif;
-      }
-    </style>
-    <script type="importmap">
+      },
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+  <script type="importmap">
 {
   "imports": {
     "react/": "https://esm.sh/react@^19.1.0/",
@@ -75,10 +78,12 @@
   }
 }
 </script>
-    <link rel="stylesheet" href="/index.css">
-  </head>
-  <body class="antialiased">
-    <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
-  </body>
+  <link rel="stylesheet" href="/index.css">
+</head>
+
+<body class="antialiased">
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
 </html>
