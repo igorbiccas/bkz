@@ -1,62 +1,96 @@
 import * as React from 'react';
 import contentRaw from './content.md?raw';
 
+type Section = {
+  title: string;
+  content: string;
+  id: string;
+};
+
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-');
+
 const App: React.FC = () => {
-  const parts = contentRaw.split('---').map(p => p.trim());
-  const header = parts[0];
-  const name = header.split('\n')[0].replace('#', '').trim();
-  const bio = header.split('\n').slice(1).join('\n').trim();
+  const parts = contentRaw.split('---').map((p) => p.trim()).filter(Boolean);
+  const header = parts[0] ?? '';
+  const headerLines = header.split('\n').map((line) => line.trim()).filter(Boolean);
+  const name = headerLines[0]?.replace(/^#\s*/, '').trim() ?? 'Portfólio';
+  const bio = headerLines.slice(1).join('\n').trim();
 
-  const sections = parts.slice(1, parts.length - 1).map(p => {
-    const lines = p.split('\n');
-    return {
-      title: lines[0].replace('##', '').trim(),
-      content: lines.slice(1).join('\n').trim()
-    };
-  });
+  const rawSections = parts.slice(1, Math.max(parts.length - 1, 1));
+  const sections: Section[] = rawSections
+    .map((p) => {
+      const lines = p.split('\n').map((line) => line.trim());
+      const title = lines[0]?.replace(/^##\s*/, '').trim() ?? 'Seção';
+      const content = lines.slice(1).join('\n').trim();
+      return {
+        title,
+        content,
+        id: slugify(title),
+      };
+    })
+    .filter((section) => section.title && section.content);
 
-  const footerLine = parts[parts.length - 1];
+  const footerLine = parts[parts.length - 1] ?? '';
   const linkMatches = [...footerLine.matchAll(/\[(.*?)\]\((.*?)\)/g)];
-  const links = linkMatches.map(m => ({ label: m[1], url: m[2] }));
+  const links = linkMatches.map((m) => ({ label: m[1], url: m[2] }));
 
-  const formatContent = (text: string) =>
-    text.split('\n').map(line => line.trim()).join('\n').trim();
+  const formatContent = (text: string) => text.split('\n').map((line) => line.trim()).join('\n').trim();
 
   return (
     <div className="min-h-screen bg-transparent">
-      <main className="mx-auto flex w-full max-w-2xl flex-col gap-12 px-6 py-16 text-base leading-relaxed">
+      <a href="#conteudo" className="sr-only focus:not-sr-only focus:absolute focus:left-6 focus:top-6 focus:z-50 focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-black">
+        Ir para o conteúdo
+      </a>
 
-        {/* Profile Section */}
+      <main id="conteudo" className="mx-auto flex w-full max-w-2xl flex-col gap-12 px-6 py-16 text-base leading-relaxed">
         <section className="space-y-4">
-          <p className="text-sm tracking-[0.35em]">{name}</p>
-          <div className="whitespace-pre-wrap">
-            {formatContent(bio)}
-          </div>
+          <h1 className="text-sm tracking-[0.35em]">{name}</h1>
+          <div className="whitespace-pre-wrap text-white/90">{formatContent(bio)}</div>
         </section>
 
-        {/* Dynamic Sections */}
-        {sections.map((section, i) => (
-          <React.Fragment key={i}>
+        {sections.length > 1 && (
+          <nav aria-label="Navegação das seções" className="rounded-xl border border-white/15 bg-white/5 p-4">
+            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-white/70">Navegação</p>
+            <ul className="space-y-2">
+              {sections.map((section) => (
+                <li key={section.id}>
+                  <a href={`#${section.id}`} className="text-sm text-white/80 underline-offset-4 transition hover:text-white hover:underline">
+                    {section.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+
+        {sections.map((section) => (
+          <React.Fragment key={section.id}>
             <hr className="border-white/20" />
-            <section className="space-y-4">
-              <p className="text-sm tracking-[0.35em]">{section.title}</p>
-              <div className="whitespace-pre-wrap">
-                {formatContent(section.content)}
-              </div>
+            <section id={section.id} className="space-y-4 scroll-mt-20">
+              <h2 className="text-sm tracking-[0.35em]">{section.title}</h2>
+              <div className="whitespace-pre-wrap text-white/90">{formatContent(section.content)}</div>
             </section>
           </React.Fragment>
         ))}
 
-        {/* Footer Links */}
-        <footer className="flex flex-wrap items-center gap-6 pt-8 text-sm opacity-60 hover:opacity-100 transition-opacity">
+        <footer className="flex flex-wrap items-center gap-6 pt-8 text-sm opacity-80 transition-opacity hover:opacity-100">
           {links.map((link, i) => {
             const isGithub = link.label.toLowerCase() === 'github';
             return (
               <a
                 key={i}
                 href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 underline underline-offset-4 hover:text-white transition-colors"
-                aria-label={link.label}
+                aria-label={`${link.label} (abre em nova aba)`}
               >
                 {isGithub ? (
                   <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 fill-current">
@@ -69,7 +103,6 @@ const App: React.FC = () => {
             );
           })}
         </footer>
-
       </main>
     </div>
   );
